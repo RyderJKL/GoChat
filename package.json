@@ -1,0 +1,26 @@
+{
+  "name": "GoChat",
+  "version": "1.0.0",
+  "description": "GoChat 基于 socket.io 和 Angular.js 的多人多房间聊天室，做这个项目的目的主要在于将 Node.js 与 前端开发框架结合起来体会前端开发的流程以及如何去实现一个真正的单页面(SPA)应用。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onejustone/GoChat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onejustone/GoChat/issues"
+  },
+  "homepage": "https://github.com/onejustone/GoChat#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "socket.io": "^1.7.3"
+  }
+}
