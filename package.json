@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/onejustone/GoChat#readme",
   "dependencies": {
+    "ejs": "^2.5.6",
     "express": "^4.14.1",
     "http": "0.0.0",
     "path": "^0.12.7",

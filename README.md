@@ -3,6 +3,21 @@
 GoChat 基于 socket.io 和 Angular.js 的多人多房间聊天室，做这个项目的目的主要在于将 Node.js 与 前端开发框架结合起来体会前端开发的流程以及如何去实现一个真正的单页面(SPA)应用。
 
 
+---
+### 技术栈
+
+* Angular.js v1.6.1
+* Angular-UI-Router 1.0.0.3
+* Express 4.14.1
+* Node.js v7.4.0
+* Bootstrap v3.3.6
+* JQuery 1.11.1
+* socket.io v.1.7.3
+* Require.js
+* Gulp.js
+
+
+---
 ### 基础架构
 
 #### socket.io
@@ -18,7 +33,7 @@ WebSocket 是 HTML5 中加入的新特性，它为浏览器和服务器端提供
 * JSONP Polling
 
 
-####### 具体实现
+###### 使用 socket.io
 socket.io 使用 `on/emit` 即是订阅/发布模式来实现服务器和客户端的通信。所以，在 JavaScript 环境中构建 socket.io 应用程序，需要客户端和服务器端的相互合作。
 
 ```  
@@ -83,6 +98,49 @@ socket.on('news', function(data){
 
 #### Angular.js
 
-Angular.js 是一个前端的 MVC 框架，它实现了视图和数据从的双向绑定。让开发人员可以专注于功能开发，而无需纠缠于繁琐的 DOM 操作中。
+Angular.js 是一个前端的 MVC 框架，它实现了视图和数据从的双向绑定。让开发人员可以专注于功能开发，而无需纠缠于繁琐的 DOM 操作中。但考虑到 AngularJS `ngRoute` 的局限性，我们将使用 `ui.router`。
 
+
+---
+### 具体实现
+
+---
+#### 0x00 封装 socket.io 
+上面的例子中，我们给出来简单的使用 `socke.io` 的 demo，我们需要将其封装为 AngularJS 的一个服务对象 `sokcet`，以方便使用，下面是具体的封装过程:
+
+``` 
+angular.module('goChat')
+.factory('socket', ['$rootScope', function ($rootScope) {
+	// 将 socket.io 封装为一个名为 socket 的服务，这样就可以在
+	// AngularJS 中的其它组件中使用 socket 与服务器端通信了
+	let socket = io('/');
+
+	return {
+		on: function (eventName, callback) {
+			socket.on(eventName, function () {
+				let args = arguments;
+				$rootScope.$apply(function () {
+					// 告诉 AngularJS 执行 callback
+					// 以后检查
+					//$rootScope
+					// 即是整个应用程序的状态，如果有变化就更新
+					// messages 数据状态，让后更新视图。
+					callback.apply(socket, args);
+				})
+			})
+		},
+
+		emit: function (eventName, data, callback) {
+			socket.emit(eventName, data, function () {
+				let args = arguments;
+				$rootScope.$apply(function () {
+					if (callback) {
+						callback.apply(socket, args);
+					}
+				})
+			})
+		}
+	}
+}]);
+```
 

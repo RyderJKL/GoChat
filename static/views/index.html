@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="goChat">
+<head>
+    <meta charset="UTF-8">
+    <title>GoChat</title>
+
+    <link rel="stylesheet"
+          href="../lib/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="../style/room.css">
+    <script
+            src="../lib/jquery-1.11.1.min.js"></script>
+    <script
+            src="../lib/bootstrap.min.js"></script>
+
+    <script src="../lib/socket.io.js"></script>
+
+    <script src="../lib/angular.js"></script>
+    <script src="../lib/angular-ui-router.min.js"></script>
+
+    <script src="../goChat.js"></script>
+    <script src="../app/services/socket.js"></script>
+
+
+    <script src="../app/controllers/room-ctrl.js"></script>
+    <script src="../app/controllers/message-creator-ctrl.js"></script>
+
+
+
+    <script src="../app/components/room.js"></script>
+    <!--<script src="../app/components/login.js"></script>-->
+
+    <script src="../app/directives/auto-scroll-to-bottom.js"></script>
+    <script src="../app/directives/ctrl-enter-break-line.js"></script>
+
+
+
+
+
+</head>
+<body>
+
+<!--<div class="navbar navbar-inverse navbar-fixed-top">-->
+    <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+            <!--<a href="" class="navbar-brand">GoChat-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<div class="panel">
+    <a ui-sref="room" style="margin-top: 200px">home
+    </a>
+    <!--<a ui-sref="login">login</a>-->
+</div>
+
+<div class="container"
+     style="margin-top: 100px">
+    <div class="row">
+        <ui-view></ui-view>
+    </div>
+</div>
+<!--<script type="text/javascript">-->
+<!-- 测试代码: 以便在 AngularJS 中实现对 socket.io 的封装-->
+<!--let socket = io('/');-->
+<!--//    使用 io.connect 方法，传入 socket 服务的地址，本应用中 socket 服务器和静态服务器是同一个-->
+<!--// 所以可以简写为 (/),实际相当于 http://localhost:3000，然后便可获得一个 socket 对象以实现与服务器端的通信-->
+<!--socket.on('connect', function () {-->
+<!--console.log("i am client,i am coming!");-->
+<!--})-->
+<!--socket.on('disconnect', function () {-->
+<!--console.log("i am client, i am leaving...")-->
+<!--})-->
+<!--</script>-->
+</body>
+</html>
