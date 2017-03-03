@@ -6,7 +6,54 @@ let  express = require('express');
 let app = express();
 let server = require('http').createServer(app);
 let path = require('path')
-// 添加 express 服务
+let Controller = require('./controllers')
+
+app.use(express.bodyParser());
+app.use(express.cookieParser());
+app.user(express.seesion({
+	secret: 'goChat',
+	cookie:{
+		maxAge: 60*1000
+	}
+}));
+
+
+app.get('/api/validate', function (req, res) {
+	_userId = req.session._userId;
+	if (_userId){
+		Controllers.User.findUserById(_userId, function (err, user) {
+			if (err){
+				res.json(401, {msg: err});
+			} else{
+				res.json(user)
+			}
+		})
+	} else {
+		res.json(401, null)
+	}
+});
+
+app.post('/api/login', function (req, res) {
+	email = req.body.email;
+	if (email){
+		Controller.User.findByEmailOrCreate(email, function (err, user) {
+			if (err){
+				res.json(500, { msg: err})
+			} else {
+				req.session._userId = user._id;
+				res.json(user);
+			}
+		})
+	} else {
+		res.json(403)
+	}
+});
+
+app.get('/api/logout', function (req, res) {
+	req.session._userId = null;
+	res.json(401)
+});
+
 
 
 let io = require('socket.io')(server);

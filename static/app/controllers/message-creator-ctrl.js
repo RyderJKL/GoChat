@@ -10,11 +10,13 @@ angular.module('goChat')
 	$scope.createMessage = function () {
 		// 当用户按下 Enter 键时触发该事件
 		if ($scope.newMessage == '') {
-
+			// 如果消息为空，直接返回
 			return null;
 		}
 		socket.emit('createMessage', $scope.newMessage);
-		// 触发 createMessage 事件，并将新创建的消息推送到服务器端
+		// 触发 createMessage
+		// 事件，该事件有服务器端注册,并将调用 socket
+		// 服务将新创建的消息推送到服务器端
 		$scope.newMessage = '';
 		// 清空消息
 	}

@@ -5,5 +5,5 @@
  
 angular.module('goChat')
 .component('login', {
-	templateUrl: 'view/login.html',
+	templateUrl: 'views/login.html',
 })

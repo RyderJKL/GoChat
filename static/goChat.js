@@ -10,22 +10,22 @@ angular.module('goChat',['ui.router'])
 	);
 
 	let states = [
-		// {
-		// 	name: 'login',
-		// 	url: '/login',
-		// 	component: 'login',
-		// 	// controller: 'LoginCtrl'
-		// },
+		{
+			name: 'login',
+			url: '/login',
+			component: 'login',
+		},
 
 		{
 			name: 'room',
 			url:'/room',
 			component:'room',
-			// controller: 'RoomCtrl'
 		}
 	];
 
 	states.forEach(function (state) {
 		$stateProvider.state(state);
 	})
+}]).run(['$window', '$rootScope', '$http','$urlRouterProvider',function($window, $rootScope, $http, $urlRouterProvider) {
+	$http.get('/api/validate').then(( (user) => {$rootScope.me = user; $urlRouterProvider.redirectTo('/')}),( (err) => {$urlRouterProvider.redirectTo('/login')}));
 }]);

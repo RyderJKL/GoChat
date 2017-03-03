@@ -7,12 +7,14 @@ GoChat 基于 socket.io 和 Angular.js 的多人多房间聊天室，做这个�
 ### 技术栈
 
 * Angular.js v1.6.1
-* Angular-UI-Router 1.0.0.3
-* Express 4.14.1
-* Node.js v7.4.0
-* Bootstrap v3.3.6
-* JQuery 1.11.1
+* Angular-UI-Router v1.0.0.3
 * socket.io v.1.7.3
+* Express v4.14.1
+* Mongoose v4.8.5
+* Node.js v7.4.0
+* Async v2.1.5
+* Bootstrap v3.3.6
+* JQuery v1.11.1
 * Require.js
 * Gulp.js
 
@@ -144,3 +146,10 @@ angular.module('goChat')
 }]);
 ```
 
+---
+#### 0x01 用户登录认证
+AngularJS 提供了 `Run Block` 启动模块，当整个应用启动时将首先运行这个块，我们将登录验证逻辑写在这里:
+
+``` 
+
+```
