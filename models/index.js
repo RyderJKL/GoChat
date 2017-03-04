@@ -4,6 +4,6 @@
  */
 
 let mongoose = require("mongoose")
-mongoose.connect('mongodb://localhost/goChat')
+mongoose.connect('mongodb://localhost/db')
 exports.User = mongoose.model('User', require('./user'))
  

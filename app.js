@@ -5,16 +5,31 @@
 let  express = require('express');
 let app = express();
 let server = require('http').createServer(app);
+let session = require('express-session')
 let path = require('path')
-let Controller = require('./controllers')
+let Controller = require('./controllers/user')
+let cookieParser = require('cookie-parser');
+let bodyParser = require('body-parser');
+// let settings = require('./settings')
+let MongoStore = require('connect-mongo')(session)
 
-app.use(express.bodyParser());
-app.use(express.cookieParser());
-app.user(express.seesion({
-	secret: 'goChat',
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({
+	// secret: settings.cookieSecret,
+	// key: settings.db,
+	secret: 'db',
 	cookie:{
-		maxAge: 60*1000
-	}
+		maxAge: 60*1000*10
+		// 十分钟
+	},
+	// store: new MongoStore({
+	// 	url: 'mongodb://localhost/' + settings.db
+	// }),
+	resave: true,
+	saveUninitialized: true
 }));
 
 
@@ -23,18 +38,20 @@ app.get('/api/validate', function (req, res) {
 	if (_userId){
 		Controllers.User.findUserById(_userId, function (err, user) {
 			if (err){
-				res.json(401, {msg: err});
+				res.status(status).json(401, {msg: err});
 			} else{
-				res.json(user)
+				res.status(status).json(user)
 			}
 		})
 	} else {
-		res.json(401, null)
+		res.status(status).json(401, null)
 	}
 });
 
 app.post('/api/login', function (req, res) {
+
 	email = req.body.email;
+	console.log('req.body.email' + email)
 	if (email){
 		Controller.User.findByEmailOrCreate(email, function (err, user) {
 			if (err){
@@ -45,7 +62,7 @@ app.post('/api/login', function (req, res) {
 			}
 		})
 	} else {
-		res.json(403)
+		res.status(status).json(403)
 	}
 });
 
@@ -98,6 +115,7 @@ app.set('view engine', 'ejs');
 app.use('/',function (req, res) {
 	// 将所有请求转发到 index.html 中去
 	// 服务器不关心路由，路由全部由 Angular.js 去处理
+	console.log("正则跳转路由")
 	res.sendFile(__dirname + '/static/views/index.html');
 });
 

@@ -3,7 +3,7 @@
  */
 
  
-let db = require('../models')
+let db = require('../models/index')
 let async = require('async')
 let gravatar = require('gravatar')
 

@@ -1,11 +1,14 @@
-<form action="" class="form-inline">
+<form action="" class="form-inline"
+      ng-submit="login()">
     <div class="form-group">
         <label for="" class="sr-only">Gmail
         </label>
         <input type="email" required
-               class="form-control" >
+               class="form-control"
+               ng-model="email">
     </div>
     <button
-            class="btn btn-primary btn-enter">Enter
+           type="submit"
+           class="btn btn-primary btn-enter">Enter
     </button>
 </form>
